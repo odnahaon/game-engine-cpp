@@ -8,6 +8,6 @@ in vec3 fragmentColor;
 out vec3 color;
 
 void main() {
-    // Colors everything red. Uses RGB format.
+    // Colors everything according to the vertex colors.
     color = fragmentColor;
 }
