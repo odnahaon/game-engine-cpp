@@ -155,15 +155,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="controls.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="loadShader.cpp" />
+    <ClCompile Include="pauseMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FragmentShader.glsl" />
     <None Include="VertexShader.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="controls.hpp" />
     <ClInclude Include="loadShader.hpp" />
+    <ClInclude Include="pauseMenu.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

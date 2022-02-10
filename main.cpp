@@ -18,13 +18,14 @@ using namespace glm;
 
 // The shader file I wrote.
 #include <loadShader.hpp>
+#include <controls.hpp>
 
 int main() {
     // Initialize GLFW and check to make sure it is initialized properly.
     glfwInit();
     if (!glfwInit()) {
         fprintf(stderr, "Failed to initialize GLFW\n");
-        getchar();
+        //getchar();
         return -1;
     }
 
@@ -42,7 +43,7 @@ int main() {
     window = glfwCreateWindow(800, 600, "Game Engine", NULL, NULL);
     if (window == NULL) {
         fprintf(stderr, "Failed to open GLFW window.");
-        getchar();
+        //getchar();
         glfwTerminate();
         return -1;
     }
@@ -60,6 +61,11 @@ int main() {
     // Make sure keys are captured.
     glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+    glfwPollEvents();
+    glfwSetCursorPos(window, 800 / 2, 600 / 2);
+
     // Dark blue background.
     glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 
@@ -67,6 +73,9 @@ int main() {
     glEnable(GL_DEPTH_TEST);
     // Nearest to camera only.
     glDepthFunc(GL_LESS);
+
+    // Backface culling.
+    glEnable(GL_CULL_FACE);
 
     // Creating the Vertex Array Object (VAO).
     GLuint VertexArrayID;
@@ -81,16 +90,16 @@ int main() {
 
     // Matrix for projection.
     // 45° FOV, 4:3, display range 0.1 to 100.
-    glm::mat4 projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
+    //glm::mat4 projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
     // Matrix for camera.
     // Camera located at (4,3,-3) world space, looks at (0,0,0), right side up ((0,-1,0) upside down).
-    glm::mat4 view = glm::lookAt(glm::vec3(4, 3, -3), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+    //glm::mat4 view = glm::lookAt(glm::vec3(4, 3, 3), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
     // Matrix for model.
     // AKA identity matrix.
-    glm::mat4 model = glm::mat4(1.0f);
+    //glm::mat4 model = glm::mat4(1.0f);
     // ModelViewProjection to multiply the matrices.
     // Keep in mind that matrix multiplication will reverse the order.
-    glm::mat4 MVP = projection * view * model;
+    //glm::mat4 MVP = projection * view * model;
 
     // Array of vectors. These represent vertices.
     static const GLfloat g_vertex_buffer_data[] = {
@@ -158,89 +167,66 @@ int main() {
 
     // Colors for the vertices.
     static const GLfloat g_color_buffer_data[] = {
+        
+        // 1
 	    1.000f,  0.000f,  0.000f,
-        1.000f,  0.000f,  0.000f,
-        1.000f,  0.000f,  0.000f,
+        0.000f,  1.000f,  0.000f,
+        0.000f,  0.000f,  1.000f,
 
+        // 2
 	    1.000f,  0.000f,  0.000f,
-	    1.000f,  1.000f,  0.000f,
-	    1.000f,  0.000f,  1.000f,
+	    1.000f,  0.000f,  0.000f,
+	    0.000f,  1.000f,  0.000f,
 
+        // 3
 	    1.000f,  0.000f,  0.000f,
 	    1.000f,  0.000f,  0.000f,
+	    0.000f,  0.000f,  1.000f,
+        
+        // 4
 	    1.000f,  0.000f,  0.000f,
-
+	    0.000f,  0.000f,  1.000f,
 	    1.000f,  0.000f,  0.000f,
-	    1.000f,  1.000f,  0.000f,
-	    1.000f,  0.000f,  1.000f,
-
+        
+        // 5
 	    1.000f,  0.000f,  0.000f,
+	    0.000f,  0.000f,  1.000f,
+	    0.000f,  1.000f,  0.000f,
+        
+        // 6
 	    1.000f,  0.000f,  0.000f,
+	    0.000f,  1.000f,  0.000f,
 	    1.000f,  0.000f,  0.000f,
-
+        
+        // 7
+	    0.000f,  0.000f,  1.000f,
+	    0.000f,  1.000f,  0.000f,
 	    1.000f,  0.000f,  0.000f,
+        
+        // 8
+	    0.000f,  1.000f,  0.000f,
+	    0.000f,  0.000f,  1.000f,
 	    1.000f,  0.000f,  0.000f,
+        
+        // 9
+	    0.000f,  0.000f,  1.000f,
+	    0.000f,  1.000f,  0.000f,
 	    1.000f,  0.000f,  0.000f,
-
+        
+        // 10
+	    0.000f,  1.000f,  0.000f,
 	    1.000f,  0.000f,  0.000f,
-	    1.000f,  0.000f,  0.000f,
-	    1.000f,  0.000f,  0.000f,
-
-	    1.000f,  0.000f,  0.000f,
-	    1.000f,  0.000f,  0.000f,
-	    1.000f,  0.000f,  0.000f,
-
-	    1.000f,  0.000f,  0.000f,
-	    1.000f,  0.000f,  0.000f,
-	    1.000f,  0.000f,  0.000f,
-
-	    1.000f,  0.000f,  0.000f,
-	    1.000f,  0.000f,  0.000f,
-	    1.000f,  0.000f,  0.000f,
-
-	    1.000f,  0.000f,  0.000f,
-	    1.000f,  0.000f,  0.000f,
-	    1.000f,  0.000f,  0.000f,
-
-	    1.000f,  0.000f,  0.000f,
-	    1.000f,  0.000f,  0.000f,
-	    1.000f,  0.000f,  0.000f,
-        //0.583f,  0.771f,  0.014f,
-        //0.609f,  0.115f,  0.436f,
-        //0.327f,  0.483f,  0.844f,
-        //0.822f,  0.569f,  0.201f,
-        //0.435f,  0.602f,  0.223f,
-        //0.310f,  0.747f,  0.185f,
-        //0.597f,  0.770f,  0.761f,
-        //0.559f,  0.436f,  0.730f,
-        //0.359f,  0.583f,  0.152f,
-        //0.483f,  0.596f,  0.789f,
-        //0.559f,  0.861f,  0.639f,
-        //0.195f,  0.548f,  0.859f,
-        //0.014f,  0.184f,  0.576f,
-        //0.771f,  0.328f,  0.970f,
-        //0.406f,  0.615f,  0.116f,
-        //0.676f,  0.977f,  0.133f,
-        //0.971f,  0.572f,  0.833f,
-        //0.140f,  0.616f,  0.489f,
-        //0.997f,  0.513f,  0.064f,
-        //0.945f,  0.719f,  0.592f,
-        //0.543f,  0.021f,  0.978f,
-        //0.279f,  0.317f,  0.505f,
-        //0.167f,  0.620f,  0.077f,
-        //0.347f,  0.857f,  0.137f,
-        //0.055f,  0.953f,  0.042f,
-        //0.714f,  0.505f,  0.345f,
-        //0.783f,  0.290f,  0.734f,
-        //0.722f,  0.645f,  0.174f,
-        //0.302f,  0.455f,  0.848f,
-        //0.225f,  0.587f,  0.040f,
-        //0.517f,  0.713f,  0.338f,
-        //0.053f,  0.959f,  0.120f,
-        //0.393f,  0.621f,  0.362f,
-        //0.673f,  0.211f,  0.457f,
-        //0.820f,  0.883f,  0.371f,
-        //0.982f,  0.099f,  0.879f
+	    0.000f,  1.000f,  0.000f,
+        
+        // 11
+	    0.000f,  1.000f,  0.000f,
+	    0.000f,  1.000f,  0.000f,
+	    0.000f,  0.000f,  1.000f,
+        
+        // 12
+	    0.000f,  1.000f,  0.000f,
+	    0.000f,  0.000f,  1.000f,
+	    1.000f,  0.000f,  0.000f
     };
 
     // Buffers for vertices.
@@ -264,6 +250,13 @@ int main() {
 
         // Use the shader.
         glUseProgram(programID);
+
+        // Compute the MVP matrix from keyboard and mouse.
+        computeMatricesFromInputs();
+        glm::mat4 projectionMatrix = getProjectionMatrix();
+        glm::mat4 viewMatrix = getViewMatrix();
+        glm::mat4 modelMatrix = glm::mat4(1.0);
+        glm::mat4 MVP = projectionMatrix * viewMatrix * modelMatrix;
 
         // Sends the MVP uniform.
         glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);

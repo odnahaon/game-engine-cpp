@@ -21,6 +21,12 @@
     <ClCompile Include="loadShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="controls.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pauseMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="VertexShader.glsl" />
@@ -28,6 +34,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="loadShader.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="controls.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pauseMenu.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
