@@ -229,6 +229,10 @@ int main() {
 	    1.000f,  0.000f,  0.000f
     };
 
+    static const GLfloat g_normal_buffer_data[] {
+        1
+    };
+
     // Buffers for vertices.
     GLuint vertexBuffer;
     // 1 buffer and put result in vertexBuffer, then bind it.
@@ -242,6 +246,13 @@ int main() {
     glGenBuffers(1, &colorBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW);
+
+    // Buffer for normals.
+    GLuint normalBuffer;
+    glGenBuffers(1, &normalBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(g_normal_buffer_data), g_normal_buffer_data, GL_STATIC_DRAW);
+    //glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &normals[0], GL_STATIC_DRAW);
 
     // do while loop keeps the window open until the ESCAPE key is pressed.
     do {
