@@ -16,7 +16,7 @@ GLFWwindow* window;
 #include <glm/gtc/matrix_transform.hpp>
 using namespace glm;
 
-// The shader file I wrote.
+// The custom files I wrote.
 #include <loadShader.hpp>
 #include <controls.hpp>
 
@@ -231,6 +231,45 @@ int main() {
 
     static const GLfloat g_normal_buffer_data[] {
         1
+    };
+
+    static const GLfloat g_texture_buffer_data[]{
+
+        // 1; Left side; bottom front
+        -1.0f,-1.0f,-1.0f,
+
+        // 2; Back side; top right
+        -1.0f, 1.0f,-1.0f,
+
+        // 3; Bottom side; front left
+        1.0f,-1.0f,-1.0f,
+
+        // 4; Back side; bottom left
+        1.0f,-1.0f,-1.0f,
+
+        // 5; Left side; top back
+        -1.0f, 1.0f,-1.0f,
+
+        // 6; Bottom side; back right
+        -1.0f,-1.0f,-1.0f,
+
+        // 7; Front side; left bottom
+        -1.0f,-1.0f, 1.0f,
+
+        // 8; Right side; top back
+        1.0f, 1.0f,-1.0f,
+
+        // 9; Right side; front bottom
+        1.0f,-1.0f, 1.0f,
+
+        // 10; Top side; back right
+        1.0f, 1.0f,-1.0f,
+
+        // 11; Top side; front left
+        -1.0f, 1.0f, 1.0f,
+
+        // 12; Front side; top right
+        1.0f, 1.0f, 1.0f,
     };
 
     // Buffers for vertices.

@@ -30,6 +30,9 @@
     <ClCompile Include="loadObj.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="loadTextures.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="VertexShader.glsl" />
@@ -46,6 +49,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="loadObj.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="loadTextures.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
