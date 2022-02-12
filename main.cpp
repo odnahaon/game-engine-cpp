@@ -293,6 +293,12 @@ int main() {
     glBufferData(GL_ARRAY_BUFFER, sizeof(g_normal_buffer_data), g_normal_buffer_data, GL_STATIC_DRAW);
     //glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &normals[0], GL_STATIC_DRAW);
 
+    // Buffer for textures.
+    GLuint textureBuffer;
+    glGenBuffers(1, &textureBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, textureBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(g_texture_buffer_data), g_texture_buffer_data, GL_STATIC_DRAW);
+
     // do while loop keeps the window open until the ESCAPE key is pressed.
     do {
         // Clear the screen.
@@ -321,6 +327,11 @@ int main() {
         glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
         glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
+        // Texture buffer.
+        glEnableVertexAttribArray(2);
+        glBindBuffer(GL_ARRAY_BUFFER, textureBuffer);
+        glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+
         // Draw.
         // 0: starting vertex, 3: total of vertices.
         glDrawArrays(GL_TRIANGLES, 0, 12*3);
@@ -328,6 +339,7 @@ int main() {
         // Disable the vertices.
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
+        glDisableVertexAttribArray(2);
 
         // Swapping buffers and stuff.
         glfwSwapBuffers(window);
@@ -337,6 +349,7 @@ int main() {
     // Cleanup. Always good to free up resources.
     glDeleteBuffers(1, &vertexBuffer);
     glDeleteBuffers(1, &colorBuffer);
+    glDeleteBuffers(1, &textureBuffer);
     glDeleteProgram(programID);
     glDeleteVertexArrays(1, &VertexArrayID);
 
