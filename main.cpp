@@ -19,6 +19,7 @@ using namespace glm;
 // The custom files I wrote.
 #include <loadShader.hpp>
 #include <controls.hpp>
+#include <loadDDS.hpp>
 
 int main() {
     // Initialize GLFW and check to make sure it is initialized properly.
@@ -100,6 +101,10 @@ int main() {
     // ModelViewProjection to multiply the matrices.
     // Keep in mind that matrix multiplication will reverse the order.
     //glm::mat4 MVP = projection * view * model;
+
+    // Texture loading.
+    GLuint texture = loadDDS("resources/cobblestone_PNG_BC7_1.DDS");
+    GLuint textureID = glGetUniformLocation(programID, "textureSampler");
 
     // Array of vectors. These represent vertices.
     static const GLfloat g_vertex_buffer_data[] = {

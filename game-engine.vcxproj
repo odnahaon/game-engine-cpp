@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="controls.cpp" />
+    <ClCompile Include="loadDDS.cpp" />
     <ClCompile Include="loadObj.cpp" />
     <ClCompile Include="loadTextures.cpp" />
     <ClCompile Include="main.cpp" />
@@ -168,10 +169,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="controls.hpp" />
+    <ClInclude Include="loadDDS.hpp" />
     <ClInclude Include="loadObj.hpp" />
     <ClInclude Include="loadShader.hpp" />
     <ClInclude Include="loadTextures.hpp" />
     <ClInclude Include="pauseMenu.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\cobblestone_PNG_BC7_1.DDS" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
