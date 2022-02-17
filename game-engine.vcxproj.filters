@@ -33,6 +33,9 @@
     <ClCompile Include="loadTextures.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="loadDDS.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="VertexShader.glsl" />
@@ -54,6 +57,14 @@
     <ClInclude Include="loadTextures.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="loadDDS.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\cobblestone_PNG_BC7_1.DDS">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Image Include="NFT.png">
