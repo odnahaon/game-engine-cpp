@@ -64,7 +64,7 @@ int main() {
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     glfwPollEvents();
-    glfwSetCursorPos(window, 800 / 2, 600 / 2);
+    glfwSetCursorPos(window, static_cast<double>(800) / 2, static_cast<double>(600) / 2);
 
     // Dark blue background.
     glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
