@@ -6,13 +6,19 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
 
-void loadTextures(char* filename, int width, int height, int colorChannels) {
+void loadTextures(const char* filename, int width, int height, int colorChannels) {
 
 	// Create ID and generate textures and mipmaps.
 	unsigned int texture;
 	glGenTextures(1, &texture);
 	glBindTexture(GL_TEXTURE_2D, texture);
 	
+	// Test values.
+	filename = "NFT.png";
+	width = 16;
+	height = 16;
+	colorChannels = 3;
+
 	/* 
 	* Texture properties:
 	* Repeats on the x-axis.
@@ -21,9 +27,9 @@ void loadTextures(char* filename, int width, int height, int colorChannels) {
 	* Closer? Blur the texture.
 	* Farther? Sharpen the texture.
 	*/
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_BORDER);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 

@@ -17,5 +17,5 @@ bool loadObj (const char* path, std::vector < glm::vec3 >& out_vertices, std::ve
 	std::vector <glm::vec2> temp_uvs;
 	std::vector <glm::vec3> temp_normals;
 
-
+	return true;
 }

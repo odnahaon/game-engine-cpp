@@ -293,6 +293,12 @@ int main() {
     glBufferData(GL_ARRAY_BUFFER, sizeof(g_normal_buffer_data), g_normal_buffer_data, GL_STATIC_DRAW);
     //glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &normals[0], GL_STATIC_DRAW);
 
+    // Buffers for textures.
+    GLuint textureBuffer;
+    glGenBuffers(1, &textureBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, textureBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(g_texture_buffer_data), g_texture_buffer_data, GL_STATIC_DRAW);
+
     // do while loop keeps the window open until the ESCAPE key is pressed.
     do {
         // Clear the screen.
@@ -320,6 +326,11 @@ int main() {
         glEnableVertexAttribArray(1);
         glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
         glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+
+        // Texture buffer.
+        glEnableVertexAttribArray(2);
+        glBindBuffer(GL_ARRAY_BUFFER, textureBuffer);
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
         // Draw.
         // 0: starting vertex, 3: total of vertices.
