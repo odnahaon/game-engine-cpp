@@ -1,6 +1,8 @@
 // Standard includes
 #include <stdio.h>
 #include <stdlib.h>
+#include <vector>
+#include <string>
 
 // GLEW. Extension loading.
 #define GLEW_STATIC
@@ -17,8 +19,9 @@ GLFWwindow* window;
 using namespace glm;
 
 // The custom files I wrote.
-#include <loadShader.hpp>
-#include <controls.hpp>
+#include "loadShader.hpp"
+#include "controls.hpp"
+#include "loadTextures.hpp"
 
 int main() {
     // Initialize GLFW and check to make sure it is initialized properly.
@@ -332,6 +335,17 @@ int main() {
         glBindBuffer(GL_ARRAY_BUFFER, textureBuffer);
         glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
+        // Textures.
+        std::vector<std::string> faces {
+            "NFT.png",
+            "NFT.png",
+            "NFT.png",
+            "NFT.png",
+            "NFT.png",
+            "NFT.png",
+        };
+        unsigned int cubemapTexture = loadCubemap(faces);
+
         // Draw.
         // 0: starting vertex, 3: total of vertices.
         glDrawArrays(GL_TRIANGLES, 0, 12*3);
@@ -339,6 +353,7 @@ int main() {
         // Disable the vertices.
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
+        glDisableVertexAttribArray(2);
 
         // Swapping buffers and stuff.
         glfwSwapBuffers(window);
@@ -348,6 +363,7 @@ int main() {
     // Cleanup. Always good to free up resources.
     glDeleteBuffers(1, &vertexBuffer);
     glDeleteBuffers(1, &colorBuffer);
+    glDeleteBuffers(1, &textureBuffer);
     glDeleteProgram(programID);
     glDeleteVertexArrays(1, &VertexArrayID);
 
