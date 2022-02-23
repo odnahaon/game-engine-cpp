@@ -23,7 +23,7 @@ float horizAngle = 3.14f;
 float vertiAngle = 0.0f;
 float initFOV = 70.0f;
 float speed = 3.0f;
-float mouseSpeed = 0.01f;
+float mouseSpeed = 0.1f;
 int width = 800;
 int height = 600;
 float FOV;
