@@ -36,6 +36,12 @@
     <ClCompile Include="loadDDS.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="gui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="loadBMP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="VertexShader.glsl" />
@@ -60,11 +66,12 @@
     <ClInclude Include="loadDDS.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="resources\cobblestone_PNG_BC7_1.DDS">
-      <Filter>Resource Files</Filter>
-    </Image>
+    <ClInclude Include="gui.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="loadBMP.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="NFT.png">

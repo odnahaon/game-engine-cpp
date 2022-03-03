@@ -22,6 +22,7 @@ using namespace glm;
 #include "loadShader.hpp"
 #include "controls.hpp"
 #include "loadTextures.hpp"
+#include "loadObj.hpp"
 
 int main() {
     // Initialize GLFW and check to make sure it is initialized properly.
@@ -299,13 +300,18 @@ int main() {
         1.0f,-1.0f, 1.0f
     };
 
+    std::vector<glm::vec3> vertices;
+    std::vector<glm::vec2> uvs;
+    std::vector<glm::vec3> normals;
+    bool res = loadObj("icosahedron.obj", vertices, uvs, normals);
+
     // Buffers for vertices.
     GLuint vertexBuffer;
     // 1 buffer and put result in vertexBuffer, then bind it.
     glGenBuffers(1, &vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
     // Hand our vertex data to OpenGL.
-    glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
 
     // Buffers for colors.
     GLuint colorBuffer;
@@ -325,6 +331,12 @@ int main() {
     glGenBuffers(1, &textureBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, textureBuffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(g_texture_buffer_data), g_texture_buffer_data, GL_STATIC_DRAW);
+
+    // Buffers for UVs.
+    GLuint uvBuffer;
+    glGenBuffers(1, &uvBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
+    glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec2), &uvs[0], GL_STATIC_DRAW);
 
     // do while loop keeps the window open until the ESCAPE key is pressed.
     do {
@@ -354,10 +366,16 @@ int main() {
         glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
         glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
+        // Normal buffer.
+        glEnableVertexAttribArray(2);
+        glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
+
         // Texture buffer.
         glEnableVertexAttribArray(2);
         glBindBuffer(GL_ARRAY_BUFFER, textureBuffer);
         glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
+        
+        glEnableVertexAttribArray(4);
 
         // Textures.
         std::vector<std::string> faces {
