@@ -16,6 +16,7 @@ bool loadObj (const char* path, std::vector <glm::vec3> &outVertices, std::vecto
 	std::vector <glm::vec3> tempVertices;
 	std::vector <glm::vec2> tempUvs;
 	std::vector <glm::vec3> tempNormals;
+	int status = 1;
 
 	// Open the file.
 	FILE* file = fopen(path, "r");
@@ -34,30 +35,46 @@ bool loadObj (const char* path, std::vector <glm::vec3> &outVertices, std::vecto
 			break;
 		}
 		// Read the vertices
-		else if (strcmp(lineHeader, "v") == 0) {
+		else if (strcmp(lineHeader, "v\0") == 0) {
 			glm::vec3 vertex;
-			fscanf(file, "%f %f %f\n", &vertex.x, &vertex.y, &vertex.z);
+			status = fscanf(file, "%f %f %f\n", &vertex.x, &vertex.y, &vertex.z);
+			if (status == 0) {
+				printf("Could not find vertices in file %s\n", path);
+				return false;
+			}
 			tempVertices.push_back(vertex);
 		}
 		// Read the UVs
 		else if (strcmp(lineHeader, "vt") == 0) {
 			glm::vec2 uv;
-			fscanf(file, "%f %f \n", &uv.x, &uv.y);
+			status = fscanf(file, "%f %f \n", &uv.x, &uv.y);
+			if (status == 0) {
+				printf("Could not find UV in file %s\n", path);
+				return false;
+			}
 			tempUvs.push_back(uv);
 		}
 		// Read the normals
 		else if (strcmp(lineHeader, "vn") == 0) {
 			glm::vec3 normal;
-			fscanf(file, "%f %f %f \n", &normal.x, &normal.y, &normal.z);
+			status = fscanf(file, "%f %f %f \n", &normal.x, &normal.y, &normal.z);
+			if (status == 0) {
+				printf("Could not find normals in file %s\n", path);
+				return false;
+			}
 			tempNormals.push_back(normal);
 		}
-		// Read this thing
+		// Read the polygonal face elements
 		else if (strcmp(lineHeader, "f") == 0) {
 			std::string vertex1, vertex2, vertex3;
 			unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
 			int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &uvIndex[0], &normalIndex[0], &vertexIndex[1], &uvIndex[1], &normalIndex[1], &vertexIndex[2], &uvIndex[2], &normalIndex[2]);
 			if (matches != 9) {
-				printf("File can't be read by our simple parser :( Try exporting with other options, such as triangles.\n");
+				printf("File %s can't be read by our simple parser. Try exporting with other options, such as triangles.\n", path);
+				return false;
+			}
+			if (matches == 0) {
+				printf("Could not find polygonal face elements in file %s\n", path);
 				return false;
 			}
 			vertexIndices.push_back(vertexIndex[0]);
@@ -92,6 +109,8 @@ bool loadObj (const char* path, std::vector <glm::vec3> &outVertices, std::vecto
 		outUvs.push_back(uv);
 		outNormals.push_back(normal);
 	}
+
+	fclose(file);
 
 	return true;
 }

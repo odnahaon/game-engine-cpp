@@ -371,11 +371,14 @@ int main() {
         glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
 
         // Texture buffer.
-        glEnableVertexAttribArray(2);
+        glEnableVertexAttribArray(3);
         glBindBuffer(GL_ARRAY_BUFFER, textureBuffer);
-        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
+        glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
         
+        // UV buffer.
         glEnableVertexAttribArray(4);
+        glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
+        glVertexAttribPointer(4, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
         // Textures.
         std::vector<std::string> faces {
@@ -390,12 +393,14 @@ int main() {
 
         // Draw.
         // 0: starting vertex, 3: total of vertices.
-        glDrawArrays(GL_TRIANGLES, 0, 12*3);
+        glDrawArrays(GL_TRIANGLES, 0, vertices.size());
 
         // Disable the vertices.
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
         glDisableVertexAttribArray(2);
+        glDisableVertexAttribArray(3);
+        glDisableVertexAttribArray(4);
 
         // Swapping buffers and stuff.
         glfwSwapBuffers(window);
@@ -405,7 +410,9 @@ int main() {
     // Cleanup. Always good to free up resources.
     glDeleteBuffers(1, &vertexBuffer);
     glDeleteBuffers(1, &colorBuffer);
+    glDeleteBuffers(1, &normalBuffer);
     glDeleteBuffers(1, &textureBuffer);
+    glDeleteBuffers(1, &uvBuffer);
     glDeleteProgram(programID);
     glDeleteVertexArrays(1, &VertexArrayID);
 
