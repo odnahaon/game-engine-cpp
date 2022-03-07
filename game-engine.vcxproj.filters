@@ -36,7 +36,7 @@
     <ClCompile Include="gui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="loadBMP.cpp">
+    <ClCompile Include="loadDDS.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -66,10 +66,8 @@
     <ClInclude Include="loadBMP.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="NFT.png">
+    <ClInclude Include="loadDDS.hpp">
       <Filter>Source Files</Filter>
-    </Image>
+    </ClInclude>
   </ItemGroup>
 </Project>

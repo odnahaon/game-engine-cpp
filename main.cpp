@@ -23,12 +23,18 @@ using namespace glm;
 #include "controls.hpp"
 #include "loadTextures.hpp"
 #include "loadObj.hpp"
+#include "loadDDS.hpp"
 
 int main() {
+    // Width of the window.
+    int width = 800;
+    // Height of the window.
+    int height = 600;
+
     // Initialize GLFW and check to make sure it is initialized properly.
     glfwInit();
     if (!glfwInit()) {
-        fprintf(stderr, "Failed to initialize GLFW\n");
+        fprintf(stderr, "Failed to initialize GLFW.\n");
         //getchar();
         return -1;
     }
@@ -44,9 +50,9 @@ int main() {
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     // Open the window that is 800x600 with the title "Game Engine"
-    window = glfwCreateWindow(800, 600, "Game Engine", NULL, NULL);
+    window = glfwCreateWindow(width, height, "Game Engine", NULL, NULL);
     if (window == NULL) {
-        fprintf(stderr, "Failed to open GLFW window.");
+        fprintf(stderr, "Failed to open GLFW window.\n");
         //getchar();
         glfwTerminate();
         return -1;
@@ -58,27 +64,30 @@ int main() {
     glewExperimental = true;
     // Error checking.
     if (glewInit() != GLEW_OK) {
-        fprintf(stderr, "Failed to initialize GLEW\n");
+        fprintf(stderr, "Failed to initialize GLEW.\n");
         return -1;
     }
 
     // Make sure keys are captured.
     glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
+    // Unlimited mouse movement and hid the mouse.
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     glfwPollEvents();
-    glfwSetCursorPos(window, static_cast<double>(800) / 2, static_cast<double>(600) / 2);
+
+    // Center the cursor on the screen.
+    glfwSetCursorPos(window, static_cast<double>(width) / 2, static_cast<double>(height) / 2);
 
     // Dark blue background.
     glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 
     // Depth testing.
     glEnable(GL_DEPTH_TEST);
-    // Nearest to camera only.
+    // Depth test for nearest to camera only.
     glDepthFunc(GL_LESS);
 
-    // Backface culling.
+    // Backface culling. Disables sides not towards camera.
     glEnable(GL_CULL_FACE);
 
     // Creating the Vertex Array Object (VAO).
@@ -86,25 +95,30 @@ int main() {
     glGenVertexArrays(1, &VertexArrayID);
     glBindVertexArray(VertexArrayID);
 
-    // Load the shaders.
+    // Load the GLSL shaders.
     GLuint programID = LoadShaders("VertexShader.glsl", "FragmentShader.glsl");
 
-    // MVP uniform
-    GLuint MatrixID = glGetUniformLocation(programID, "MVP");
+    // Handle for the MVP (ModelViewProjection) uniform.
+    GLuint matrixID = glGetUniformLocation(programID, "MVP");
+    GLuint viewMatrixID = glGetUniformLocation(programID, "V");
+    GLuint modelMatrixID = glGetUniformLocation(programID, "M");
 
+    /* This is now unused due to implementation of controls. Use this code if the camera needs to be locked in place.
     // Matrix for projection.
     // 45° FOV, 4:3, display range 0.1 to 100.
-    //glm::mat4 projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
+    glm::mat4 projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
     // Matrix for camera.
     // Camera located at (4,3,-3) world space, looks at (0,0,0), right side up ((0,-1,0) upside down).
-    //glm::mat4 view = glm::lookAt(glm::vec3(4, 3, 3), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+    glm::mat4 view = glm::lookAt(glm::vec3(4, 3, 3), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
     // Matrix for model.
     // AKA identity matrix.
-    //glm::mat4 model = glm::mat4(1.0f);
+    glm::mat4 model = glm::mat4(1.0f);
     // ModelViewProjection to multiply the matrices.
     // Keep in mind that matrix multiplication will reverse the order.
-    //glm::mat4 MVP = projection * view * model;
+    glm::mat4 MVP = projection * view * model;
+    */
 
+    /* This code is now unused due to texture and model loading. Reuse to create a rainbow cube.
     // Array of vectors. These represent vertices.
     static const GLfloat g_vertex_buffer_data[] = {
 
@@ -231,81 +245,19 @@ int main() {
 	    0.000f,  1.000f,  0.000f,
 	    0.000f,  0.000f,  1.000f,
 	    1.000f,  0.000f,  0.000f
-    };
+    };*/
 
-    static const GLfloat g_normal_buffer_data[] {
-        1
-    };
+    // Load textures.
+    GLuint texture = loadDDS("resources\\cobblestone_DXT5_MIPS.DDS");
+    GLuint textureID = glGetUniformLocation(programID, "tex");
 
-    static const GLfloat g_texture_buffer_data[] {
-
-        // 1; Left side; bottom front
-        -1.0f,-1.0f,-1.0f,
-        -1.0f,-1.0f, 1.0f,
-        -1.0f, 1.0f, 1.0f,
-
-        // 2; Back side; top right
-        1.0f, 1.0f,-1.0f,
-        -1.0f,-1.0f,-1.0f,
-        -1.0f, 1.0f,-1.0f,
-
-        // 3; Bottom side; front left
-        1.0f,-1.0f, 1.0f,
-        -1.0f,-1.0f,-1.0f,
-        1.0f,-1.0f,-1.0f,
-
-        // 4; Back side; bottom left
-        1.0f, 1.0f,-1.0f,
-        1.0f,-1.0f,-1.0f,
-        -1.0f,-1.0f,-1.0f,
-
-        // 5; Left side; top back
-        -1.0f,-1.0f,-1.0f,
-        -1.0f, 1.0f, 1.0f,
-        -1.0f, 1.0f,-1.0f,
-
-        // 6; Bottom side; back right
-        1.0f,-1.0f, 1.0f,
-        -1.0f,-1.0f, 1.0f,
-        -1.0f,-1.0f,-1.0f,
-
-        // 7; Front side; left bottom
-        -1.0f, 1.0f, 1.0f,
-        -1.0f,-1.0f, 1.0f,
-        1.0f,-1.0f, 1.0f,
-
-        // 8; Right side; top back
-        1.0f, 1.0f, 1.0f,
-        1.0f,-1.0f,-1.0f,
-        1.0f, 1.0f,-1.0f,
-
-        // 9; Right side; front bottom
-        1.0f,-1.0f,-1.0f,
-        1.0f, 1.0f, 1.0f,
-        1.0f,-1.0f, 1.0f,
-
-        // 10; Top side; back right
-        1.0f, 1.0f, 1.0f,
-        1.0f, 1.0f,-1.0f,
-        -1.0f, 1.0f,-1.0f,
-
-        // 11; Top side; front left
-        1.0f, 1.0f, 1.0f,
-        -1.0f, 1.0f,-1.0f,
-        -1.0f, 1.0f, 1.0f,
-
-        // 12; Front side; top right
-        1.0f, 1.0f, 1.0f,
-        -1.0f, 1.0f, 1.0f,
-        1.0f,-1.0f, 1.0f
-    };
-
+    // Load models.
     std::vector<glm::vec3> vertices;
     std::vector<glm::vec2> uvs;
     std::vector<glm::vec3> normals;
-    bool res = loadObj("icosahedron.obj", vertices, uvs, normals);
+    bool res = loadObj("cube.obj", vertices, uvs, normals);
 
-    // Buffers for vertices.
+    // Buffer for vertices.
     GLuint vertexBuffer;
     // 1 buffer and put result in vertexBuffer, then bind it.
     glGenBuffers(1, &vertexBuffer);
@@ -313,30 +265,20 @@ int main() {
     // Hand our vertex data to OpenGL.
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
 
-    // Buffers for colors.
-    GLuint colorBuffer;
-    glGenBuffers(1, &colorBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW);
+    // Buffer for UVs.
+    GLuint uvBuffer;
+    glGenBuffers(1, &uvBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
+    glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec2), &uvs[0], GL_STATIC_DRAW);
 
     // Buffer for normals.
     GLuint normalBuffer;
     glGenBuffers(1, &normalBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(g_normal_buffer_data), g_normal_buffer_data, GL_STATIC_DRAW);
-    //glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &normals[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &normals[0], GL_STATIC_DRAW);
 
-    // Buffers for textures.
-    GLuint textureBuffer;
-    glGenBuffers(1, &textureBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, textureBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(g_texture_buffer_data), g_texture_buffer_data, GL_STATIC_DRAW);
-
-    // Buffers for UVs.
-    GLuint uvBuffer;
-    glGenBuffers(1, &uvBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
-    glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec2), &uvs[0], GL_STATIC_DRAW);
+    glUseProgram(programID);
+    GLuint lightID = glGetUniformLocation(programID, "lightPosition_worldspace");
 
     // do while loop keeps the window open until the ESCAPE key is pressed.
     do {
@@ -354,69 +296,67 @@ int main() {
         glm::mat4 MVP = projectionMatrix * viewMatrix * modelMatrix;
 
         // Sends the MVP uniform.
-        glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
+        glUniformMatrix4fv(matrixID, 1, GL_FALSE, &MVP[0][0]);
+        glUniformMatrix4fv(modelMatrixID, 1, GL_FALSE, &modelMatrix[0][0]);
+        glUniformMatrix4fv(viewMatrixID, 1, GL_FALSE, &viewMatrix[0][0]);
+
+        glm::vec3 lightPos = glm::vec3(4, 4, 4);
+        glUniform3f(lightID, lightPos.x, lightPos.y, lightPos.z);
+
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, texture);
+        glUniform1i(textureID, 0);
 
         // Vertex buffer.
+        // Vertex shader will look at `layout(location = 0)`.
         glEnableVertexAttribArray(0);
+        // Bind.
         glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+        /*
+        0: matches value in `glEnableVertexAttribArray();`
+        3: size; glm::vec3
+        GL_FLOAT: type
+        GL_FALSE: normalized
+        0: stride
+        (void*)0: array buffer offset
+        */
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-
-        // Color buffer.
+        
+        // UV buffer.
         glEnableVertexAttribArray(1);
-        glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+        glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
         // Normal buffer.
         glEnableVertexAttribArray(2);
         glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
-
-        // Texture buffer.
-        glEnableVertexAttribArray(3);
-        glBindBuffer(GL_ARRAY_BUFFER, textureBuffer);
-        glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
-        
-        // UV buffer.
-        glEnableVertexAttribArray(4);
-        glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
-        glVertexAttribPointer(4, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
-
-        // Textures.
-        std::vector<std::string> faces {
-            "H:\\game-engine-cpp\\resources\\cobblestone.png",
-            "H:\\game-engine-cpp\\resources\\cobblestone.png",
-            "H:\\game-engine-cpp\\resources\\cobblestone.png",
-            "H:\\game-engine-cpp\\resources\\cobblestone.png",
-            "H:\\game-engine-cpp\\resources\\cobblestone.png",
-            "H:\\game-engine-cpp\\resources\\cobblestone.png",
-        };
-        unsigned int cubemapTexture = loadCubemap(faces);
+        glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
         // Draw.
-        // 0: starting vertex, 3: total of vertices.
+        // 0: starting vertex, total of vertices.
         glDrawArrays(GL_TRIANGLES, 0, vertices.size());
 
-        // Disable the vertices.
+        // Cleanup: disable to free memory.
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
         glDisableVertexAttribArray(2);
-        glDisableVertexAttribArray(3);
-        glDisableVertexAttribArray(4);
 
         // Swapping buffers and stuff.
         glfwSwapBuffers(window);
         glfwPollEvents();
+
     } while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0);
     
     // Cleanup. Always good to free up resources.
     glDeleteBuffers(1, &vertexBuffer);
-    glDeleteBuffers(1, &colorBuffer);
-    glDeleteBuffers(1, &normalBuffer);
-    glDeleteBuffers(1, &textureBuffer);
     glDeleteBuffers(1, &uvBuffer);
+    glDeleteBuffers(1, &normalBuffer);
     glDeleteProgram(programID);
     glDeleteVertexArrays(1, &VertexArrayID);
 
-    // Cleans up everything so the allocated resources are released.
+    // Cleans up everything so the allocated resources are released and terminates GLFW.
     glfwTerminate();
+
+    // Everything went smoothly.
     return 0;
 }

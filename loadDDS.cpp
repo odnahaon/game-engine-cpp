@@ -21,14 +21,13 @@ GLuint loadDDS(const char* imagePath) {
     fp = fopen(imagePath, "rb");
     if (fp == NULL) {
         printf("%s could not be opened.", imagePath);
-        getchar();
         return 0;
     }
 
     // Check for DDS file.
     char fileCode[4];
     fread(fileCode, 1, 4, fp);
-    if (strncmp(fileCode, "DDS ", 4) != 0) {
+    if (strncmp(fileCode, "DDS \0", 4) != 0) {
         fclose(fp);
         return 0;
     }
@@ -47,6 +46,7 @@ GLuint loadDDS(const char* imagePath) {
     // How large?
     bufferSize = mipMapCount > 1 ? linearSize * 2 : linearSize;
     buffer = (unsigned char*)malloc(bufferSize * sizeof(unsigned char));
+    __pragma (warning(suppress : 6387))
     fread(buffer, 1, bufferSize, fp);
     fclose(fp);
 

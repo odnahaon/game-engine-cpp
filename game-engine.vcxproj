@@ -157,7 +157,7 @@
   <ItemGroup>
     <ClCompile Include="controls.cpp" />
     <ClCompile Include="gui.cpp" />
-    <ClCompile Include="loadBMP.cpp" />
+    <ClCompile Include="loadDDS.cpp" />
     <ClCompile Include="loadObj.cpp" />
     <ClCompile Include="loadTextures.cpp" />
     <ClCompile Include="main.cpp" />
@@ -172,13 +172,11 @@
     <ClInclude Include="controls.hpp" />
     <ClInclude Include="gui.hpp" />
     <ClInclude Include="loadBMP.hpp" />
+    <ClInclude Include="loadDDS.hpp" />
     <ClInclude Include="loadObj.hpp" />
     <ClInclude Include="loadShader.hpp" />
     <ClInclude Include="loadTextures.hpp" />
     <ClInclude Include="pauseMenu.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="NFT.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
