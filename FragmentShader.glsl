@@ -18,11 +18,11 @@ uniform vec3 lightColor;
 uniform float lightPower;
 
 void main() {
-    vec3 lightColor = vec3(1, 1, 1);
-    float lightPower = 50.0f;
+    vec3 lightColor = vec3(2, 2, 2);
+    float lightPower = 500.0f;
 
     vec3 materialDiffuseColor = texture(tex, UV).rgb;
-    vec3 materialAmbientColor = vec3(0.1, 0.1, 0.1) * materialDiffuseColor;
+    vec3 materialAmbientColor = vec3(0.8, 0.8, 0.8) * materialDiffuseColor;
     vec3 materialSpecularColor = vec3(0.3, 0.3, 0.3);
 
     float distance = length(lightPosition_worldspace - position_worldspace);

@@ -24,6 +24,7 @@ using namespace glm;
 #include "loadTextures.hpp"
 #include "loadObj.hpp"
 #include "loadDDS.hpp"
+#include "vboIndexer.hpp"
 
 int main() {
     // Width of the window.
@@ -248,14 +249,36 @@ int main() {
     };*/
 
     // Load textures.
-    GLuint texture = loadDDS("resources\\cobblestone_DXT5_MIPS.DDS");
+    //GLuint texture = loadDDS("resources\\cobblestone_DXT5_MIPS.DDS");
+    GLuint texture = loadDDS("resources\\rainbow.DDS");
     GLuint textureID = glGetUniformLocation(programID, "tex");
+
+    // Texture related.
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 
     // Load models.
     std::vector<glm::vec3> vertices;
     std::vector<glm::vec2> uvs;
     std::vector<glm::vec3> normals;
-    bool res = loadObj("cube.obj", vertices, uvs, normals);
+    //bool res = loadObj("cube.obj", vertices, uvs, normals);
+    //bool res = loadObj("pentakis_icosidodecahedron.obj", vertices, uvs, normals);
+    bool res = loadObj("sphere.obj", vertices, uvs, normals);
+    //bool res = loadObj("plane.obj", vertices, uvs, normals);
+    //bool res = loadObj("cone.obj", vertices, uvs, normals);
+    //bool res = loadObj("cylinder.obj", vertices, uvs, normals);
+    //bool res = loadObj("donut.obj", vertices, uvs, normals);
+    //bool res = loadObj("monke.obj", vertices, uvs, normals);
+
+    // Indexed VBO
+    std::vector<unsigned short> indices;
+    std::vector<glm::vec3> indexedVertices;
+    std::vector<glm::vec2> indexedUVs;
+    std::vector<glm::vec3> indexedNormals;
+    indexVBO(vertices, uvs, normals, indices, indexedVertices, indexedUVs, indexedNormals);
 
     // Buffer for vertices.
     GLuint vertexBuffer;
@@ -263,25 +286,49 @@ int main() {
     glGenBuffers(1, &vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
     // Hand our vertex data to OpenGL.
+    //glBufferData(GL_ARRAY_BUFFER, indexedVertices.size() * sizeof(glm::vec3), &indexedVertices[0], GL_STATIC_DRAW);
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
 
     // Buffer for UVs.
     GLuint uvBuffer;
     glGenBuffers(1, &uvBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
+    //glBufferData(GL_ARRAY_BUFFER, indexedUVs.size() * sizeof(glm::vec2), &indexedUVs[0], GL_STATIC_DRAW);
     glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec2), &uvs[0], GL_STATIC_DRAW);
 
     // Buffer for normals.
     GLuint normalBuffer;
     glGenBuffers(1, &normalBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
+    //glBufferData(GL_ARRAY_BUFFER, indexedNormals.size() * sizeof(glm::vec3), &indexedNormals[0], GL_STATIC_DRAW);
     glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &normals[0], GL_STATIC_DRAW);
+
+    // Buffer for indices (VBO).
+    GLuint elementBuffer;
+    glGenBuffers(1, &elementBuffer);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned short), &indices[0], GL_STATIC_DRAW);
 
     glUseProgram(programID);
     GLuint lightID = glGetUniformLocation(programID, "lightPosition_worldspace");
 
+    double lastTime = glfwGetTime();
+    int nbFrames = 0;
+
     // do while loop keeps the window open until the ESCAPE key is pressed.
     do {
+
+        // Measure speed.
+        // 60 FPS = 16.6666 MS; 30 FPS = 33.3333 MS.
+        double currentTime = glfwGetTime();
+        nbFrames++;
+        // 5 second intervals.
+        if (currentTime - lastTime >= 5.0) {
+            printf("%f ms / frame\n", 1000.0 / double(nbFrames));
+            nbFrames = 0;
+            lastTime += 5.0;
+        }
+
         // Clear the screen.
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -300,7 +347,7 @@ int main() {
         glUniformMatrix4fv(modelMatrixID, 1, GL_FALSE, &modelMatrix[0][0]);
         glUniformMatrix4fv(viewMatrixID, 1, GL_FALSE, &viewMatrix[0][0]);
 
-        glm::vec3 lightPos = glm::vec3(4, 4, 4);
+        glm::vec3 lightPos = glm::vec3(2, 2, 2);
         glUniform3f(lightID, lightPos.x, lightPos.y, lightPos.z);
 
         glActiveTexture(GL_TEXTURE0);
@@ -336,6 +383,11 @@ int main() {
         // 0: starting vertex, total of vertices.
         glDrawArrays(GL_TRIANGLES, 0, vertices.size());
 
+        // Index buffer.
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
+        // Draw indices.
+        //glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, (void*)0);
+
         // Cleanup: disable to free memory.
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
@@ -351,7 +403,9 @@ int main() {
     glDeleteBuffers(1, &vertexBuffer);
     glDeleteBuffers(1, &uvBuffer);
     glDeleteBuffers(1, &normalBuffer);
+    glDeleteBuffers(1, &elementBuffer);
     glDeleteProgram(programID);
+    glDeleteTextures(1, &texture);
     glDeleteVertexArrays(1, &VertexArrayID);
 
     // Cleans up everything so the allocated resources are released and terminates GLFW.

@@ -39,6 +39,9 @@
     <ClCompile Include="loadDDS.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="vboIndexer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="VertexShader.glsl" />
@@ -67,6 +70,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="loadDDS.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vboIndexer.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

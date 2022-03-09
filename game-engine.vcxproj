@@ -163,6 +163,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="loadShader.cpp" />
     <ClCompile Include="pauseMenu.cpp" />
+    <ClCompile Include="vboIndexer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FragmentShader.glsl" />
@@ -177,6 +178,7 @@
     <ClInclude Include="loadShader.hpp" />
     <ClInclude Include="loadTextures.hpp" />
     <ClInclude Include="pauseMenu.hpp" />
+    <ClInclude Include="vboIndexer.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
