@@ -249,8 +249,8 @@ int main() {
     };*/
 
     // Load textures.
-    //GLuint texture = loadDDS("resources\\cobblestone_DXT5_MIPS.DDS");
-    GLuint texture = loadDDS("resources\\rainbow.DDS");
+    GLuint texture = loadDDS("resources\\cobblestone_DXT5_MIPS.DDS");
+    //GLuint texture = loadDDS("resources\\rainbow.DDS");
     GLuint textureID = glGetUniformLocation(programID, "tex");
 
     // Texture related.
@@ -264,9 +264,10 @@ int main() {
     std::vector<glm::vec3> vertices;
     std::vector<glm::vec2> uvs;
     std::vector<glm::vec3> normals;
+    bool res = loadObj("bigger_cube.obj", vertices, uvs, normals);
     //bool res = loadObj("cube.obj", vertices, uvs, normals);
     //bool res = loadObj("pentakis_icosidodecahedron.obj", vertices, uvs, normals);
-    bool res = loadObj("sphere.obj", vertices, uvs, normals);
+    //bool res = loadObj("sphere.obj", vertices, uvs, normals);
     //bool res = loadObj("plane.obj", vertices, uvs, normals);
     //bool res = loadObj("cone.obj", vertices, uvs, normals);
     //bool res = loadObj("cylinder.obj", vertices, uvs, normals);
