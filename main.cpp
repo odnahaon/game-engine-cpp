@@ -124,132 +124,132 @@ int main() {
     static const GLfloat g_vertex_buffer_data[] = {
 
         // 1; Left side; bottom front
-	    -1.0f,-1.0f,-1.0f,
-	    -1.0f,-1.0f, 1.0f,
-	    -1.0f, 1.0f, 1.0f,
+        -1.0f,-1.0f,-1.0f,
+        -1.0f,-1.0f, 1.0f,
+        -1.0f, 1.0f, 1.0f,
 
         // 2; Back side; top right
-	    1.0f, 1.0f,-1.0f,
-	    -1.0f,-1.0f,-1.0f,
-	    -1.0f, 1.0f,-1.0f,
+        1.0f, 1.0f,-1.0f,
+        -1.0f,-1.0f,-1.0f,
+        -1.0f, 1.0f,-1.0f,
 
         // 3; Bottom side; front left
-	    1.0f,-1.0f, 1.0f,
-	    -1.0f,-1.0f,-1.0f,
-	    1.0f,-1.0f,-1.0f,
+        1.0f,-1.0f, 1.0f,
+        -1.0f,-1.0f,-1.0f,
+        1.0f,-1.0f,-1.0f,
 
         // 4; Back side; bottom left
-	    1.0f, 1.0f,-1.0f,
-	    1.0f,-1.0f,-1.0f,
-	    -1.0f,-1.0f,-1.0f,
+        1.0f, 1.0f,-1.0f,
+        1.0f,-1.0f,-1.0f,
+        -1.0f,-1.0f,-1.0f,
 
         // 5; Left side; top back
-	    -1.0f,-1.0f,-1.0f,
-	    -1.0f, 1.0f, 1.0f,
-	    -1.0f, 1.0f,-1.0f,
+        -1.0f,-1.0f,-1.0f,
+        -1.0f, 1.0f, 1.0f,
+        -1.0f, 1.0f,-1.0f,
 
         // 6; Bottom side; back right
-	    1.0f,-1.0f, 1.0f,
-	    -1.0f,-1.0f, 1.0f,
-	    -1.0f,-1.0f,-1.0f,
+        1.0f,-1.0f, 1.0f,
+        -1.0f,-1.0f, 1.0f,
+        -1.0f,-1.0f,-1.0f,
 
         // 7; Front side; left bottom
-	    -1.0f, 1.0f, 1.0f,
-	    -1.0f,-1.0f, 1.0f,
-	    1.0f,-1.0f, 1.0f,
+        -1.0f, 1.0f, 1.0f,
+        -1.0f,-1.0f, 1.0f,
+        1.0f,-1.0f, 1.0f,
 
         // 8; Right side; top back
-	    1.0f, 1.0f, 1.0f,
-	    1.0f,-1.0f,-1.0f,
-	    1.0f, 1.0f,-1.0f,
+        1.0f, 1.0f, 1.0f,
+        1.0f,-1.0f,-1.0f,
+        1.0f, 1.0f,-1.0f,
 
         // 9; Right side; front bottom
-	    1.0f,-1.0f,-1.0f,
-	    1.0f, 1.0f, 1.0f,
-	    1.0f,-1.0f, 1.0f,
+        1.0f,-1.0f,-1.0f,
+        1.0f, 1.0f, 1.0f,
+        1.0f,-1.0f, 1.0f,
 
         // 10; Top side; back right
-	    1.0f, 1.0f, 1.0f,
-	    1.0f, 1.0f,-1.0f,
-	    -1.0f, 1.0f,-1.0f,
+        1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f,-1.0f,
+        -1.0f, 1.0f,-1.0f,
 
         // 11; Top side; front left
-	    1.0f, 1.0f, 1.0f,
-	    -1.0f, 1.0f,-1.0f,
-	    -1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f, 1.0f,
+        -1.0f, 1.0f,-1.0f,
+        -1.0f, 1.0f, 1.0f,
 
         // 12; Front side; top right
-	    1.0f, 1.0f, 1.0f,
-	    -1.0f, 1.0f, 1.0f,
-	    1.0f,-1.0f, 1.0f
+        1.0f, 1.0f, 1.0f,
+        -1.0f, 1.0f, 1.0f,
+        1.0f,-1.0f, 1.0f
     };
 
     // Colors for the vertices.
     static const GLfloat g_color_buffer_data[] = {
         
         // 1
-	    1.000f,  0.000f,  0.000f,
+        1.000f,  0.000f,  0.000f,
         0.000f,  1.000f,  0.000f,
         0.000f,  0.000f,  1.000f,
 
         // 2
-	    1.000f,  0.000f,  0.000f,
-	    1.000f,  0.000f,  0.000f,
-	    0.000f,  1.000f,  0.000f,
+        1.000f,  0.000f,  0.000f,
+        1.000f,  0.000f,  0.000f,
+        0.000f,  1.000f,  0.000f,
 
         // 3
-	    1.000f,  0.000f,  0.000f,
-	    1.000f,  0.000f,  0.000f,
-	    0.000f,  0.000f,  1.000f,
+        1.000f,  0.000f,  0.000f,
+        1.000f,  0.000f,  0.000f,
+        0.000f,  0.000f,  1.000f,
         
         // 4
-	    1.000f,  0.000f,  0.000f,
-	    0.000f,  0.000f,  1.000f,
-	    1.000f,  0.000f,  0.000f,
+        1.000f,  0.000f,  0.000f,
+        0.000f,  0.000f,  1.000f,
+        1.000f,  0.000f,  0.000f,
         
         // 5
-	    1.000f,  0.000f,  0.000f,
-	    0.000f,  0.000f,  1.000f,
-	    0.000f,  1.000f,  0.000f,
+        1.000f,  0.000f,  0.000f,
+        0.000f,  0.000f,  1.000f,
+        0.000f,  1.000f,  0.000f,
         
         // 6
-	    1.000f,  0.000f,  0.000f,
-	    0.000f,  1.000f,  0.000f,
-	    1.000f,  0.000f,  0.000f,
+        1.000f,  0.000f,  0.000f,
+        0.000f,  1.000f,  0.000f,
+        1.000f,  0.000f,  0.000f,
         
         // 7
-	    0.000f,  0.000f,  1.000f,
-	    0.000f,  1.000f,  0.000f,
-	    1.000f,  0.000f,  0.000f,
+        0.000f,  0.000f,  1.000f,
+        0.000f,  1.000f,  0.000f,
+        1.000f,  0.000f,  0.000f,
         
         // 8
-	    0.000f,  1.000f,  0.000f,
-	    0.000f,  0.000f,  1.000f,
-	    1.000f,  0.000f,  0.000f,
+        0.000f,  1.000f,  0.000f,
+        0.000f,  0.000f,  1.000f,
+        1.000f,  0.000f,  0.000f,
         
         // 9
-	    0.000f,  0.000f,  1.000f,
-	    0.000f,  1.000f,  0.000f,
-	    1.000f,  0.000f,  0.000f,
+        0.000f,  0.000f,  1.000f,
+        0.000f,  1.000f,  0.000f,
+        1.000f,  0.000f,  0.000f,
         
         // 10
-	    0.000f,  1.000f,  0.000f,
-	    1.000f,  0.000f,  0.000f,
-	    0.000f,  1.000f,  0.000f,
+        0.000f,  1.000f,  0.000f,
+        1.000f,  0.000f,  0.000f,
+        0.000f,  1.000f,  0.000f,
         
         // 11
-	    0.000f,  1.000f,  0.000f,
-	    0.000f,  1.000f,  0.000f,
-	    0.000f,  0.000f,  1.000f,
+        0.000f,  1.000f,  0.000f,
+        0.000f,  1.000f,  0.000f,
+        0.000f,  0.000f,  1.000f,
         
         // 12
-	    0.000f,  1.000f,  0.000f,
-	    0.000f,  0.000f,  1.000f,
-	    1.000f,  0.000f,  0.000f
+        0.000f,  1.000f,  0.000f,
+        0.000f,  0.000f,  1.000f,
+        1.000f,  0.000f,  0.000f
     };*/
 
     // Load textures.
-    GLuint texture = loadDDS("resources\\cobblestone_DXT5_MIPS.DDS");
+    GLuint texture = loadDDS("resources\\cobblestone_DXT5_MIP.DDS");
     //GLuint texture = loadDDS("resources\\rainbow.DDS");
     GLuint textureID = glGetUniformLocation(programID, "tex");
 
@@ -264,15 +264,20 @@ int main() {
     std::vector<glm::vec3> vertices;
     std::vector<glm::vec2> uvs;
     std::vector<glm::vec3> normals;
-    bool res = loadObj("bigger_cube.obj", vertices, uvs, normals);
-    //bool res = loadObj("cube.obj", vertices, uvs, normals);
-    //bool res = loadObj("pentakis_icosidodecahedron.obj", vertices, uvs, normals);
-    //bool res = loadObj("sphere.obj", vertices, uvs, normals);
-    //bool res = loadObj("plane.obj", vertices, uvs, normals);
-    //bool res = loadObj("cone.obj", vertices, uvs, normals);
-    //bool res = loadObj("cylinder.obj", vertices, uvs, normals);
-    //bool res = loadObj("donut.obj", vertices, uvs, normals);
-    //bool res = loadObj("monke.obj", vertices, uvs, normals);
+    std::vector<char> materialFile;
+    bool res = loadObj("bigger_cube.obj", vertices, uvs, normals, materialFile);
+    //bool res = loadObj("cube.obj", vertices, uvs, normals, materialFile);
+    //bool res = loadObj("pentakis_icosidodecahedron.obj", vertices, uvs, normals, materialFile);
+    //bool res = loadObj("sphere.obj", vertices, uvs, normals, materialFile);
+    //bool res = loadObj("plane.obj", vertices, uvs, normals, materialFile);
+    //bool res = loadObj("cone.obj", vertices, uvs, normals, materialFile);
+    //bool res = loadObj("cylinder.obj", vertices, uvs, normals, materialFile);
+    //bool res = loadObj("donut.obj", vertices, uvs, normals, materialFile);
+    //bool res = loadObj("monke.obj", vertices, uvs, normals, materialFile);
+
+    // Load materials.
+    std::vector<mtl> materials;
+    bool res = loadMtl("bigger_cube.mtl", materials);
 
     // Indexed VBO
     std::vector<unsigned short> indices;

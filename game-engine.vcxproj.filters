@@ -42,6 +42,9 @@
     <ClCompile Include="vboIndexer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="loadObj2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="VertexShader.glsl" />
@@ -73,6 +76,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="vboIndexer.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="loadObj2.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

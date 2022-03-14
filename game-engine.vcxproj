@@ -159,6 +159,7 @@
     <ClCompile Include="gui.cpp" />
     <ClCompile Include="loadDDS.cpp" />
     <ClCompile Include="loadObj.cpp" />
+    <ClCompile Include="loadObj2.cpp" />
     <ClCompile Include="loadTextures.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="loadShader.cpp" />
@@ -175,6 +176,7 @@
     <ClInclude Include="loadBMP.hpp" />
     <ClInclude Include="loadDDS.hpp" />
     <ClInclude Include="loadObj.hpp" />
+    <ClInclude Include="loadObj2.hpp" />
     <ClInclude Include="loadShader.hpp" />
     <ClInclude Include="loadTextures.hpp" />
     <ClInclude Include="pauseMenu.hpp" />
