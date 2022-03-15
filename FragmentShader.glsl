@@ -17,13 +17,18 @@ uniform vec3 lightPosition_worldspace;
 uniform vec3 lightColor;
 uniform float lightPower;
 
+// Data that will be passed from the program
+uniform vec3 materialDiffuseColor;
+uniform vec3 materialAmbientColor;
+uniform vec3 MaterialSpecularColor;
+
 void main() {
     vec3 lightColor = vec3(2, 2, 2);
     float lightPower = 500.0f;
 
-    vec3 materialDiffuseColor = texture(tex, UV).rgb;
-    vec3 materialAmbientColor = vec3(0.8, 0.8, 0.8) * materialDiffuseColor;
-    vec3 materialSpecularColor = vec3(0.3, 0.3, 0.3);
+    //vec3 materialDiffuseColor = texture(tex, UV).rgb;
+    //vec3 materialAmbientColor = vec3(0.8, 0.8, 0.8) * materialDiffuseColor;
+    //vec3 materialSpecularColor = vec3(0.3, 0.3, 0.3);
 
     float distance = length(lightPosition_worldspace - position_worldspace);
     

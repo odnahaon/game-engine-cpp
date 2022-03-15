@@ -88,15 +88,15 @@ bool loadObj (const char* path, std::vector <glm::vec3> &outVertices, std::vecto
             normalIndices.push_back(normalIndex[2]);
         }
         // Read the material file.
-        else if (strcmp(lineHeader, "mtllib") == 0) {
-            char matFile;
-            status = fscanf(file, "%s\n", &matFile);
-            if (status == 0) {
-                printf("Could not parse material file referenced in file %s\n", path);
-                return false;
-            }
-            outMaterialFile.push_back(matFile);
-        }
+        //else if (strcmp(lineHeader, "mtllib") == 0) {
+        //  char matFile;
+        //  status = fscanf(file, "%s\n", &matFile);
+        //  if (status == 0) {
+        //      printf("Could not parse material file referenced in file %s\n", path);
+        //      return false;
+        //  }
+        //  outMaterialFile.push_back(matFile);
+        //}
         // Comment in the file probably.
         else {
             // Assumes it is no longer than 1024 chars.
@@ -148,20 +148,20 @@ bool loadMtl(const char* path, std::vector<mtl> &materials) {
         }
 
         // Read the material name.
-        else if (strcmp(lineHeader, "newmtl") == 0) {
-            char fname;
-            status = fscanf(file, "%s", &fname);
-            if (status == 0) {
-                printf("Could not find material names in file %s\n", path);
-                return false;
-            }
-            tempName.push_back(fname);
-            mtlCount += 1;
-        }
+        //else if (strcmp(lineHeader, "newmtl") == 0) {
+        //    char fname;
+        //    status = fscanf(file, "%s", &fname);
+        //    if (status == 0) {
+        //        printf("Could not find material names in file %s\n", path);
+        //        return false;
+        //    }
+        //    tempName.push_back(fname);
+        //    mtlCount += 1;
+        //}
         // Read the ambient color.
         else if (strcmp(lineHeader, "Ka") == 0) {
             glm::vec3 fKa;
-            status = fscanf(file, "%f %f %f", &fKa);
+            status = fscanf(file, "%f %f %f", &fKa.x, &fKa.y, &fKa.z);
             if (status == 0) {
                 printf("Could not find ambient color in file %s\n", path);
                 return false;
@@ -171,7 +171,7 @@ bool loadMtl(const char* path, std::vector<mtl> &materials) {
         // Read the diffuse color.
         else if (strcmp(lineHeader, "Kd") == 0) {
             glm::vec3 fKd;
-            status = fscanf(file, "%f %f %f", &fKd);
+            status = fscanf(file, "%f %f %f", &fKd.x, &fKd.y, &fKd.z);
             if (status == 0) {
                 printf("Could not find diffuse color in file %s\n", path);
                 return false;
@@ -181,7 +181,7 @@ bool loadMtl(const char* path, std::vector<mtl> &materials) {
         // Read the specular color.
         else if (strcmp(lineHeader, "Ks") == 0) {
             glm::vec3 fKs;
-            status = fscanf(file, "%f %f %f", &fKs);
+            status = fscanf(file, "%f %f %f", &fKs.x, &fKs.y, &fKs.z);
             if (status == 0) {
                 printf("Could not find specular color in file %s\n", path);
                 return false;

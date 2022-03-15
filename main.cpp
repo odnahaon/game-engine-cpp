@@ -277,7 +277,7 @@ int main() {
 
     // Load materials.
     std::vector<mtl> materials;
-    bool res = loadMtl("bigger_cube.mtl", materials);
+    bool res2 = loadMtl("bigger_cube.mtl", materials);
 
     // Indexed VBO
     std::vector<unsigned short> indices;
@@ -384,6 +384,9 @@ int main() {
         glEnableVertexAttribArray(2);
         glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
         glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+
+        // Update the light in the fragment uniforms
+        glUniform3f(glGetUniformLocation(programID, "materialAmbientColor"), materials[0].Ka.x, materials[0].Ka.y, materials[0].Ka.z);
 
         // Draw.
         // 0: starting vertex, total of vertices.
