@@ -126,7 +126,7 @@ bool loadObj (const char* path, std::vector <glm::vec3> &outVertices, std::vecto
 }
 
 bool loadMtl(const char* path, std::vector<mtl> &materials) {
-    std::vector <char> tempName;
+    std::vector <string> tempName;
     std::vector <glm::vec3> tempKa, tempKd, tempKs;
     std::vector <double> tempNs, tempNi;
     std::vector <char> tempmap_Ka, tempmap_Kd, tempmap_Ks, tempmap_Ns;
@@ -148,16 +148,16 @@ bool loadMtl(const char* path, std::vector<mtl> &materials) {
         }
 
         // Read the material name.
-        //else if (strcmp(lineHeader, "newmtl") == 0) {
-        //    char fname;
-        //    status = fscanf(file, "%s", &fname);
-        //    if (status == 0) {
-        //        printf("Could not find material names in file %s\n", path);
-        //        return false;
-        //    }
-        //    tempName.push_back(fname);
-        //    mtlCount += 1;
-        //}
+        else if (strcmp(lineHeader, "newmtl") == 0) {
+            char fname[1024];
+            status = fscanf(file, "%s", &fname);
+            if (status == 0) {
+                printf("Could not find material names in file %s\n", path);
+                return false;
+            }
+            tempName.push_back(fname);
+            mtlCount += 1;
+        }
         // Read the ambient color.
         else if (strcmp(lineHeader, "Ka") == 0) {
             glm::vec3 fKa;
@@ -191,7 +191,7 @@ bool loadMtl(const char* path, std::vector<mtl> &materials) {
         // Read the specular exponent.
         else if (strcmp(lineHeader, "Ns") == 0) {
             double fNs;
-            status = fscanf(file, "%f", &fNs);
+            status = fscanf(file, "%lf", &fNs);
             if (status == 0) {
                 printf("Could not find specular exponent in file %s\n", path);
                 return false;
@@ -201,7 +201,7 @@ bool loadMtl(const char* path, std::vector<mtl> &materials) {
         // Read the index of refraction, also known as the optical density.
         else if (strcmp(lineHeader, "Ni") == 0) {
             double fNi;
-            status = fscanf(file, "%f", &fNi);
+            status = fscanf(file, "%lf", &fNi);
             if (status == 0) {
                 printf("Could not find optical density in file %s\n", path);
                 return false;

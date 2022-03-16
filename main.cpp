@@ -249,7 +249,7 @@ int main() {
     };*/
 
     // Load textures.
-    GLuint texture = loadDDS("resources\\cobblestone_DXT5_MIP.DDS");
+    GLuint texture = loadDDS("resources\\cobblestone_DXT5_MIPS.DDS");
     //GLuint texture = loadDDS("resources\\rainbow.DDS");
     GLuint textureID = glGetUniformLocation(programID, "tex");
 
@@ -386,7 +386,10 @@ int main() {
         glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
         // Update the light in the fragment uniforms
-        glUniform3f(glGetUniformLocation(programID, "materialAmbientColor"), materials[0].Ka.x, materials[0].Ka.y, materials[0].Ka.z);
+        glUniform3f(glGetUniformLocation(programID, "materialAmbientColor"), (GLfloat) materials[0].Ka.x, (GLfloat) materials[0].Ka.r, (GLfloat) materials[0].Ka.s);
+        glUniform3f(glGetUniformLocation(programID, "materialDiffuseColor"), (GLfloat) materials[0].Kd.x, (GLfloat) materials[0].Kd.r, (GLfloat) materials[0].Kd.s);
+        glUniform3f(glGetUniformLocation(programID, "materialSpecularColor"), (GLfloat) materials[0].Ks.x, (GLfloat) materials[0].Ks.r, (GLfloat) materials[0].Ks.s);
+        glUniform1f(glGetUniformLocation(programID, "lightPower"), (GLfloat) materials[0].Ns);
 
         // Draw.
         // 0: starting vertex, total of vertices.

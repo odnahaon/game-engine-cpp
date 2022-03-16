@@ -15,17 +15,16 @@ uniform sampler2D tex;
 uniform mat4 MV;
 uniform vec3 lightPosition_worldspace;
 uniform vec3 lightColor;
-uniform float lightPower;
 
 // Data that will be passed from the program
 uniform vec3 materialDiffuseColor;
 uniform vec3 materialAmbientColor;
-uniform vec3 MaterialSpecularColor;
+uniform vec3 materialSpecularColor;
+uniform float lightPower;
 
 void main() {
     vec3 lightColor = vec3(2, 2, 2);
-    float lightPower = 500.0f;
-
+    //float lightPower = 500.0f;
     //vec3 materialDiffuseColor = texture(tex, UV).rgb;
     //vec3 materialAmbientColor = vec3(0.8, 0.8, 0.8) * materialDiffuseColor;
     //vec3 materialSpecularColor = vec3(0.3, 0.3, 0.3);

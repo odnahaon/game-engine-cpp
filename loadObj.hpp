@@ -2,7 +2,7 @@
 #define OBJ_HPP
 
 struct mtl {
-    char name;
+    std::string name;
     glm::vec3 Ka;
     glm::vec3 Kd;
     glm::vec3 Ks;
