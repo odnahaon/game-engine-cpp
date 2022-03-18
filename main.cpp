@@ -16,6 +16,7 @@ GLFWwindow* window;
 // GLM. 3D math.
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 using namespace glm;
 
 // The custom files I wrote.
@@ -264,8 +265,7 @@ int main() {
     std::vector<glm::vec3> vertices;
     std::vector<glm::vec2> uvs;
     std::vector<glm::vec3> normals;
-    std::vector<char> materialFile;
-    bool res = loadObj("bigger_cube.obj", vertices, uvs, normals, materialFile);
+    bool res = loadObj("bigger_cube.obj", vertices, uvs, normals);
     //bool res = loadObj("cube.obj", vertices, uvs, normals, materialFile);
     //bool res = loadObj("pentakis_icosidodecahedron.obj", vertices, uvs, normals, materialFile);
     //bool res = loadObj("sphere.obj", vertices, uvs, normals, materialFile);
@@ -276,8 +276,13 @@ int main() {
     //bool res = loadObj("monke.obj", vertices, uvs, normals, materialFile);
 
     // Load materials.
-    std::vector<mtl> materials;
-    bool res2 = loadMtl("bigger_cube.mtl", materials);
+    std::vector<std::string> name;
+    std::vector<glm::vec3> Ka;
+    std::vector<glm::vec3> Kd;
+    std::vector<glm::vec3> Ks;
+    std::vector<double> Ns;
+    std::vector<double> Ni;
+    bool res2 = loadMtl("bigger_cube.mtl", name, Ka, Kd, Ks, Ns, Ni);
 
     // Indexed VBO
     std::vector<unsigned short> indices;
@@ -386,10 +391,10 @@ int main() {
         glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
         // Update the light in the fragment uniforms
-        glUniform3f(glGetUniformLocation(programID, "materialAmbientColor"), (GLfloat) materials[0].Ka.x, (GLfloat) materials[0].Ka.r, (GLfloat) materials[0].Ka.s);
-        glUniform3f(glGetUniformLocation(programID, "materialDiffuseColor"), (GLfloat) materials[0].Kd.x, (GLfloat) materials[0].Kd.r, (GLfloat) materials[0].Kd.s);
-        glUniform3f(glGetUniformLocation(programID, "materialSpecularColor"), (GLfloat) materials[0].Ks.x, (GLfloat) materials[0].Ks.r, (GLfloat) materials[0].Ks.s);
-        glUniform1f(glGetUniformLocation(programID, "lightPower"), (GLfloat) materials[0].Ns);
+        glUniform3fv(glGetUniformLocation(programID, "materialAmbientColor"), 1, glm::value_ptr(Ka[0]));
+        glUniform3fv(glGetUniformLocation(programID, "materialDiffuseColor"), 1, glm::value_ptr(Kd[0]));
+        glUniform3fv(glGetUniformLocation(programID, "materialSpecularColor"), 1, glm::value_ptr(Ks[0]));
+        glUniform1f(glGetUniformLocation(programID, "lightPower"), Ns[0]);
 
         // Draw.
         // 0: starting vertex, total of vertices.

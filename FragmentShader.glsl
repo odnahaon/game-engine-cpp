@@ -24,10 +24,10 @@ uniform float lightPower;
 
 void main() {
     vec3 lightColor = vec3(2, 2, 2);
-    //float lightPower = 500.0f;
-    //vec3 materialDiffuseColor = texture(tex, UV).rgb;
-    //vec3 materialAmbientColor = vec3(0.8, 0.8, 0.8) * materialDiffuseColor;
-    //vec3 materialSpecularColor = vec3(0.3, 0.3, 0.3);
+    float lightPower = 323.999994f;
+    vec3 materialAmbientColor = vec3(1.0, 1.0, 1.0);
+    vec3 materialDiffuseColor = vec3(0.8, 0.8, 0.8);
+    vec3 materialSpecularColor = vec3(0.5, 0.5, 0.5);
 
     float distance = length(lightPosition_worldspace - position_worldspace);
     

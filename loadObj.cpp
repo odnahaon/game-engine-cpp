@@ -10,7 +10,7 @@ using namespace glm;
 
 #include "loadObj.hpp"
 
-bool loadObj (const char* path, std::vector <glm::vec3> &outVertices, std::vector <glm::vec2> &outUvs, std::vector <glm::vec3> &outNormals, std::vector <char> &outMaterialFile) {
+bool loadObj (const char* path, std::vector <glm::vec3> &outVertices, std::vector <glm::vec2> &outUvs, std::vector <glm::vec3> &outNormals) {
     // Variables to store info.
     std::vector <unsigned int> vertexIndices, uvIndices, normalIndices;
     std::vector <glm::vec3> tempVertices;
@@ -125,7 +125,7 @@ bool loadObj (const char* path, std::vector <glm::vec3> &outVertices, std::vecto
     return true;
 }
 
-bool loadMtl(const char* path, std::vector<mtl> &materials) {
+bool loadMtl(const char* path, std::vector <string> &name, std::vector <glm::vec3> &Ka, std::vector <glm::vec3> &Kd, std::vector <glm::vec3> &Ks, std::vector <double> &Ns, std::vector <double> &Ni) {
     std::vector <string> tempName;
     std::vector <glm::vec3> tempKa, tempKd, tempKs;
     std::vector <double> tempNs, tempNi;
@@ -155,7 +155,7 @@ bool loadMtl(const char* path, std::vector<mtl> &materials) {
                 printf("Could not find material names in file %s\n", path);
                 return false;
             }
-            tempName.push_back(fname);
+            name.push_back(fname);
             mtlCount += 1;
         }
         // Read the ambient color.
@@ -166,7 +166,7 @@ bool loadMtl(const char* path, std::vector<mtl> &materials) {
                 printf("Could not find ambient color in file %s\n", path);
                 return false;
             }
-            tempKa.push_back(fKa);
+            Ka.push_back(fKa);
         }
         // Read the diffuse color.
         else if (strcmp(lineHeader, "Kd") == 0) {
@@ -176,7 +176,7 @@ bool loadMtl(const char* path, std::vector<mtl> &materials) {
                 printf("Could not find diffuse color in file %s\n", path);
                 return false;
             }
-            tempKd.push_back(fKd);
+            Kd.push_back(fKd);
         }
         // Read the specular color.
         else if (strcmp(lineHeader, "Ks") == 0) {
@@ -186,7 +186,7 @@ bool loadMtl(const char* path, std::vector<mtl> &materials) {
                 printf("Could not find specular color in file %s\n", path);
                 return false;
             }
-            tempKs.push_back(fKs);
+            Ks.push_back(fKs);
         }
         // Read the specular exponent.
         else if (strcmp(lineHeader, "Ns") == 0) {
@@ -196,7 +196,7 @@ bool loadMtl(const char* path, std::vector<mtl> &materials) {
                 printf("Could not find specular exponent in file %s\n", path);
                 return false;
             }
-            tempNs.push_back(fNs);
+            Ns.push_back(fNs);
         }
         // Read the index of refraction, also known as the optical density.
         else if (strcmp(lineHeader, "Ni") == 0) {
@@ -206,7 +206,7 @@ bool loadMtl(const char* path, std::vector<mtl> &materials) {
                 printf("Could not find optical density in file %s\n", path);
                 return false;
             }
-            tempNi.push_back(fNi);
+            Ni.push_back(fNi);
         }
         // Comment in the file probably.
         else {
@@ -216,14 +216,8 @@ bool loadMtl(const char* path, std::vector<mtl> &materials) {
         }
     }
 
-    tempMtl.name = tempName[0];
-    tempMtl.Ka = tempKa[0];
-    tempMtl.Kd = tempKd[0];
-    tempMtl.Ks = tempKs[0];
-    tempMtl.Ns = tempNs[0];
-    tempMtl.Ni = tempNi[0];
-
-    materials.push_back(tempMtl);
+    //for (unsigned int i = 0; i < tempName.size(); i++) {
+    //}
 
     fclose(file);
 
