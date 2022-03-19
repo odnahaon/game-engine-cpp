@@ -265,24 +265,24 @@ int main() {
     std::vector<glm::vec3> vertices;
     std::vector<glm::vec2> uvs;
     std::vector<glm::vec3> normals;
-    bool res = loadObj("bigger_cube.obj", vertices, uvs, normals);
-    //bool res = loadObj("cube.obj", vertices, uvs, normals, materialFile);
-    //bool res = loadObj("pentakis_icosidodecahedron.obj", vertices, uvs, normals, materialFile);
-    //bool res = loadObj("sphere.obj", vertices, uvs, normals, materialFile);
-    //bool res = loadObj("plane.obj", vertices, uvs, normals, materialFile);
-    //bool res = loadObj("cone.obj", vertices, uvs, normals, materialFile);
-    //bool res = loadObj("cylinder.obj", vertices, uvs, normals, materialFile);
-    //bool res = loadObj("donut.obj", vertices, uvs, normals, materialFile);
-    //bool res = loadObj("monke.obj", vertices, uvs, normals, materialFile);
+    //bool res = loadObj("bigger_cube.obj", vertices, uvs, normals);
+    //bool res = loadObj("cube.obj", vertices, uvs, normals);
+    bool res = loadObj("pentakis_icosidodecahedron.obj", vertices, uvs, normals);
+    //bool res = loadObj("sphere.obj", vertices, uvs, normals);
+    //bool res = loadObj("plane.obj", vertices, uvs, normals);
+    //bool res = loadObj("cone.obj", vertices, uvs, normals);
+    //bool res = loadObj("cylinder.obj", vertices, uvs, normals);
+    //bool res = loadObj("donut.obj", vertices, uvs, normals);
+    //bool res = loadObj("monke.obj", vertices, uvs, normals);
 
     // Load materials.
-    std::vector<std::string> name;
+    /*std::vector<std::string> name;
     std::vector<glm::vec3> Ka;
     std::vector<glm::vec3> Kd;
     std::vector<glm::vec3> Ks;
     std::vector<double> Ns;
     std::vector<double> Ni;
-    bool res2 = loadMtl("bigger_cube.mtl", name, Ka, Kd, Ks, Ns, Ni);
+    bool res2 = loadMtl("bigger_cube.mtl", name, Ka, Kd, Ks, Ns, Ni);*/
 
     // Indexed VBO
     std::vector<unsigned short> indices;
@@ -391,10 +391,10 @@ int main() {
         glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
         // Update the light in the fragment uniforms
-        glUniform3fv(glGetUniformLocation(programID, "materialAmbientColor"), 1, glm::value_ptr(Ka[0]));
-        glUniform3fv(glGetUniformLocation(programID, "materialDiffuseColor"), 1, glm::value_ptr(Kd[0]));
-        glUniform3fv(glGetUniformLocation(programID, "materialSpecularColor"), 1, glm::value_ptr(Ks[0]));
-        glUniform1f(glGetUniformLocation(programID, "lightPower"), Ns[0]);
+        //glUniform3fv(glGetUniformLocation(programID, "materialAmbientColor"), 1, glm::value_ptr(Ka[0]));
+        //glUniform3fv(glGetUniformLocation(programID, "materialDiffuseColor"), 1, glm::value_ptr(Kd[0]));
+        //glUniform3fv(glGetUniformLocation(programID, "materialSpecularColor"), 1, glm::value_ptr(Ks[0]));
+        //glUniform1f(glGetUniformLocation(programID, "lightPower"), Ns[0]);
 
         // Draw.
         // 0: starting vertex, total of vertices.

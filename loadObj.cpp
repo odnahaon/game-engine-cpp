@@ -35,7 +35,7 @@ bool loadObj (const char* path, std::vector <glm::vec3> &outVertices, std::vecto
             break;
         }
         // Read the vertices
-        else if (strcmp(lineHeader, "v") == 0) {
+        else if (strcmp(lineHeader, "v\0") == 0) {
             glm::vec3 vertex;
             status = fscanf(file, "%f %f %f\n", &vertex.x, &vertex.y, &vertex.z);
             if (status == 0) {
@@ -125,7 +125,7 @@ bool loadObj (const char* path, std::vector <glm::vec3> &outVertices, std::vecto
     return true;
 }
 
-bool loadMtl(const char* path, std::vector <string> &name, std::vector <glm::vec3> &Ka, std::vector <glm::vec3> &Kd, std::vector <glm::vec3> &Ks, std::vector <double> &Ns, std::vector <double> &Ni) {
+/*bool loadMtl(const char* path, std::vector <string>& name, std::vector <glm::vec3>& Ka, std::vector <glm::vec3>& Kd, std::vector <glm::vec3>& Ks, std::vector <double>& Ns, std::vector <double>& Ni) {
     std::vector <string> tempName;
     std::vector <glm::vec3> tempKa, tempKd, tempKs;
     std::vector <double> tempNs, tempNi;
@@ -222,4 +222,4 @@ bool loadMtl(const char* path, std::vector <string> &name, std::vector <glm::vec
     fclose(file);
 
     return true;
-}
+}*/
