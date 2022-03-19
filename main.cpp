@@ -26,6 +26,7 @@ using namespace glm;
 #include "loadObj.hpp"
 #include "loadDDS.hpp"
 #include "vboIndexer.hpp"
+#include "text.hpp"
 
 int main() {
     // Width of the window.
@@ -283,6 +284,9 @@ int main() {
     std::vector<double> Ns;
     std::vector<double> Ni;
     bool res2 = loadMtl("bigger_cube.mtl", name, Ka, Kd, Ks, Ns, Ni);*/
+
+    // Load text.
+    bool res3 = loadFont("resources\\fonts\\calibri.ttf");
 
     // Indexed VBO
     std::vector<unsigned short> indices;

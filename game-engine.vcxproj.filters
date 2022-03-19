@@ -45,6 +45,9 @@
     <ClCompile Include="loadObj2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="text.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="VertexShader.glsl" />
@@ -79,6 +82,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="loadObj2.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="text.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

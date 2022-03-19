@@ -83,7 +83,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(SolutionDir);$(SolutionDir)other\glm-0.9.9.8\glm;$(SolutionDir)other;$(SolutionDir)other\glew-2.1.0-win32\glew-2.1.0\include;$(SolutionDir)other\glfw-3.3.6.bin.WIN64\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)other\glfw-3.3.6.bin.WIN64\lib-vc2022;$(SolutionDir)other\glew-2.1.0-win32\glew-2.1.0\lib\Release\x64;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)other\glfw-3.3.6.bin.WIN64\lib-vc2022;$(SolutionDir)other\glew-2.1.0-win32\glew-2.1.0\lib\Release\x64;$(SolutionDir)other\freetype\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -132,7 +132,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Users\19162\Code\workspace-cpp\game-engine\other\glew-2.1.0-win32\glew-2.1.0\bin\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -164,6 +164,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="loadShader.cpp" />
     <ClCompile Include="pauseMenu.cpp" />
+    <ClCompile Include="text.cpp" />
     <ClCompile Include="vboIndexer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -180,6 +181,7 @@
     <ClInclude Include="loadShader.hpp" />
     <ClInclude Include="loadTextures.hpp" />
     <ClInclude Include="pauseMenu.hpp" />
+    <ClInclude Include="text.hpp" />
     <ClInclude Include="vboIndexer.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
