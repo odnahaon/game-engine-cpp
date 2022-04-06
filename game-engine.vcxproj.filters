@@ -48,6 +48,9 @@
     <ClCompile Include="text.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="tangentspace.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="VertexShader.glsl" />
@@ -86,6 +89,9 @@
     </ClInclude>
     <ClInclude Include="text.hpp">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tangentspace.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

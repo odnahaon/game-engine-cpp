@@ -54,4 +54,5 @@ bool loadFont(const char* font) {
     // Cleanup.
     FT_Done_Face(face);
     FT_Done_FreeType(ft);
+    return true;
 }

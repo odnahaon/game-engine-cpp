@@ -164,6 +164,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="loadShader.cpp" />
     <ClCompile Include="pauseMenu.cpp" />
+    <ClCompile Include="tangentspace.cpp" />
     <ClCompile Include="text.cpp" />
     <ClCompile Include="vboIndexer.cpp" />
   </ItemGroup>
@@ -181,6 +182,7 @@
     <ClInclude Include="loadShader.hpp" />
     <ClInclude Include="loadTextures.hpp" />
     <ClInclude Include="pauseMenu.hpp" />
+    <ClInclude Include="tangentspace.hpp" />
     <ClInclude Include="text.hpp" />
     <ClInclude Include="vboIndexer.hpp" />
   </ItemGroup>

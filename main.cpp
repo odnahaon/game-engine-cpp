@@ -27,6 +27,7 @@ using namespace glm;
 #include "loadDDS.hpp"
 #include "vboIndexer.hpp"
 #include "text.hpp"
+#include "tangentspace.hpp"
 
 int main() {
     // Width of the window.
@@ -294,6 +295,10 @@ int main() {
     std::vector<glm::vec2> indexedUVs;
     std::vector<glm::vec3> indexedNormals;
     indexVBO(vertices, uvs, normals, indices, indexedVertices, indexedUVs, indexedNormals);
+
+    std::vector<glm::vec3> tangents;
+    std::vector<glm::vec3> bitangents;
+    computeTangentBasis(vertices, uvs, normals, tangents, bitangents);
 
     // Buffer for vertices.
     GLuint vertexBuffer;
