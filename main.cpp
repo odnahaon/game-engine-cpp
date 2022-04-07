@@ -287,7 +287,7 @@ int main() {
     bool res2 = loadMtl("bigger_cube.mtl", name, Ka, Kd, Ks, Ns, Ni);*/
 
     // Load text.
-    bool res3 = loadFont("resources\\fonts\\calibri.ttf");
+    //`bool res3 = loadFont("resources\\fonts\\calibri.ttf");
 
     // Indexed VBO
     std::vector<unsigned short> indices;
@@ -328,6 +328,18 @@ int main() {
     glGenBuffers(1, &elementBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned short), &indices[0], GL_STATIC_DRAW);
+
+    // Buffer for tangents
+    GLuint tangentBuffer;
+    glGenBuffers(1, &tangentBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, tangentBuffer);
+    glBufferData(GL_ARRAY_BUFFER, tangents.size() * sizeof(glm::vec3), &tangents[0], GL_STATIC_DRAW);
+
+    // Buffer for bitangents
+    GLuint bitangentBuffer;
+    glGenBuffers(1, &bitangentBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, bitangentBuffer);
+    glBufferData(GL_ARRAY_BUFFER, bitangents.size() * sizeof(glm::vec3), &bitangents[0], GL_STATIC_DRAW);
 
     glUseProgram(programID);
     GLuint lightID = glGetUniformLocation(programID, "lightPosition_worldspace");
@@ -399,6 +411,16 @@ int main() {
         glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
         glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
+        // Tangent buffer.
+        glEnableVertexAttribArray(3);
+        glBindBuffer(GL_ARRAY_BUFFER, tangentBuffer);
+        glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+
+        // Bitangent buffer.
+        glEnableVertexAttribArray(4);
+        glBindBuffer(GL_ARRAY_BUFFER, bitangentBuffer);
+        glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+
         // Update the light in the fragment uniforms
         //glUniform3fv(glGetUniformLocation(programID, "materialAmbientColor"), 1, glm::value_ptr(Ka[0]));
         //glUniform3fv(glGetUniformLocation(programID, "materialDiffuseColor"), 1, glm::value_ptr(Kd[0]));
@@ -418,6 +440,8 @@ int main() {
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
         glDisableVertexAttribArray(2);
+        glDisableVertexAttribArray(3);
+        glDisableVertexAttribArray(4);
 
         // Swapping buffers and stuff.
         glfwSwapBuffers(window);
@@ -430,6 +454,8 @@ int main() {
     glDeleteBuffers(1, &uvBuffer);
     glDeleteBuffers(1, &normalBuffer);
     glDeleteBuffers(1, &elementBuffer);
+    glDeleteBuffers(1, &tangentBuffer);
+    glDeleteBuffers(1, &bitangentBuffer);
     glDeleteProgram(programID);
     glDeleteTextures(1, &texture);
     glDeleteVertexArrays(1, &VertexArrayID);

@@ -1,4 +1,4 @@
-// Standard includes.
+/*// Standard includes.
 #include <map>
 #include <utility>
 
@@ -14,6 +14,15 @@
 #include FT_FREETYPE_H
 
 #include "text.hpp"
+
+struct Character {
+    unsigned int textureID;
+    glm::ivec2 size;
+    glm::ivec2 bearing;
+    unsigned int advance;
+};
+
+std::map<char, Character> Characters;
 
 bool loadFont(const char* font) {
     FT_Library ft;
@@ -56,3 +65,4 @@ bool loadFont(const char* font) {
     FT_Done_FreeType(ft);
     return true;
 }
+*/

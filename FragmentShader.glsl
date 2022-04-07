@@ -8,9 +8,18 @@ in vec3 normal_cameraspace;
 in vec3 eyeDirection_cameraspace;
 in vec3 lightDirection_cameraspace;
 
+in vec3 lightDirection_tangentspace;
+in vec3 eyeDirection_tangentspace;
+
 // Output data.
 out vec3 color;
 
+uniform sampler2D diffuseTextureSampler;
+uniform sampler2D normalTextureSampler;
+uniform sampler2D specularTextureSampler;
+uniform mat4 V;
+uniform mat4 M;
+uniform mat3 MV3x3;
 uniform sampler2D tex;
 uniform mat4 MV;
 uniform vec3 lightPosition_worldspace;
@@ -28,6 +37,8 @@ void main() {
     vec3 materialAmbientColor = vec3(1.0, 1.0, 1.0);
     vec3 materialDiffuseColor = vec3(0.8, 0.8, 0.8);
     vec3 materialSpecularColor = vec3(0.5, 0.5, 0.5);
+
+    vec3 textureNormal_tangentspace = normalize(texture(normalTextureSampler, vec2 (UV.x,-UV.y)).rgb*2.0 - 1.0);
 
     float distance = length(lightPosition_worldspace - position_worldspace);
     

@@ -72,12 +72,6 @@
     <ClInclude Include="loadTextures.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="gui.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="loadBMP.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="loadDDS.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -91,7 +85,13 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="tangentspace.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="loadBMP.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gui.hpp">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
